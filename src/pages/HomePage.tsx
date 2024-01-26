@@ -1,22 +1,20 @@
-// HomePage.tsx
-import React from "react";
-import NavBar from "../components/NavBar";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import React from 'react';
+import NavBar from '../components/NavBar'; 
+import TopBar from '../components/TopBar'; 
+import Post from '../components/Post';
+import PostsList from '../components/PostList';
+
 
 const HomePage = () => {
   return (
     <div>
       <NavBar />
-      <Container fluid>
-        <Row>
-          <Col className="p-0">
-            {/* Your photo goes here */}
-            <Image src="/nuture1.jpg" fluid />
-          </Col>
-        </Row>
-      </Container>
+      <TopBar />
+      <PostsList />
+      {/* The rest of your home page content will go here */}
     </div>
   );
 };
 
 export default HomePage;
+
