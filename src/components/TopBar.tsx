@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 
+
+
 const TopBar = () => {
     return (
       <div className="hero-section" style={{ backgroundImage: 'url(/topbar4.jpeg)', backgroundSize: 'cover', height: '45vh' }}>

@@ -1,13 +1,24 @@
-import React from "react";
-import HomePage from "./pages/HomePage";
+// App.js or App.tsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import HomePage from './pages/HomePage';
+import Footer from './components/Footer';
+import Destination from './pages/Destination';
 
-const App = () => {
+
+function App() {
   return (
-    <div>
-      <HomePage />
-      {/* Add other components/pages as needed */}
-    </div>
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/destination" element={<Destination/>}/>
+      </Routes>
+      <Footer />
+    </Router>
   );
-};
+}
 
 export default App;
+

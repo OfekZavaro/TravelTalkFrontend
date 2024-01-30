@@ -1,26 +1,42 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
 
 const NavBar = () => {
+  const location = useLocation();
+
+  const handleLogout = () => {
+    // Logic for logging out (like clearing the local storage, resetting auth state, etc.)
+  };
+  
   return (
     <Navbar expand="lg" variant="dark" fixed="top" style={{ backgroundColor: 'transparent' }}>
       <Container>
-        <Navbar.Brand href="#home">TRAVEL TALK</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">TRAVEL TALK</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto"> {/* Change ml-auto to me-auto for Bootstrap 5 or leave it as ml-auto for Bootstrap 4 */}
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#profile">My Profile</Nav.Link>
-            <Nav.Link href="#destination">Destination</Nav.Link>
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/" className={location.pathname === '/' ? 'active' : ''}>
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
+              My Profile
+            </Nav.Link>
+            <Nav.Link as={Link} to="/destination" className={location.pathname === '/destination' ? 'active' : ''}>
+              Destination
+            </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link href="#logout" style={{ 
+            {}
+            <Nav.Link as={Link} to="/logout" onClick={handleLogout} style={{ 
               marginLeft: 'auto', 
               backgroundColor: '#fff', 
               color: '#000', 
               borderRadius: '20px', 
               padding: '5px 15px' 
-            }}>Log Out</Nav.Link> {/* Inline styles to make it look like a button */}
+            }}>
+              Log Out
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -29,4 +45,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
