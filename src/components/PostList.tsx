@@ -21,7 +21,9 @@ const PostsList = () => {
   return (
     <div>
       {posts.map((post) => (
-        <Post key={post._id} post={post} /> // Make sure your IPost interface has an _id field if you're using MongoDB
+            <div key={post._id} className="mb-5"> 
+                <Post post={post} />
+            </div>
       ))}
     </div>
   );
