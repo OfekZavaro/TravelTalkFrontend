@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import TopBar from '../components/TopBar'; 
 import LocationButtons from '../components/LocationButtons';
 import LocationPostList from '../components/LocationPostList'; 
+import Footer from '../components/Footer';
 
 const DestinationPage = () => {
   const [selectedLocation, setSelectedLocation] = useState<string>('');
@@ -15,6 +16,7 @@ const DestinationPage = () => {
         <LocationPostList location={selectedLocation} /> {/* Render posts for selected location */}
       </div >
       <div style={{ marginTop: '5rem' }}></div>
+      <Footer/>
     </div>
   );
 }

@@ -16,7 +16,7 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/" className={location.pathname === '/' ? 'active' : ''}>
+            <Nav.Link as={Link} to="/home" className={location.pathname === '/home' ? 'active' : ''}>
               Home
             </Nav.Link>
             <Nav.Link as={Link} to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
