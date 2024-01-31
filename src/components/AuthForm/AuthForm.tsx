@@ -9,14 +9,16 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImage from "../../assets/login2.jpg";
 import signUpImage from "../../assets/signUp2.jpg";
 import { apiClient } from "../../utils/apiClient";
 import { z } from "zod";
+import Alert from "../CustomAlert";
 import "./AuthForm.css";
 
 const AuthForm = () => {
+  const navigate = useNavigate();
   const registrationSchema = z.object({
     name: z
       .string()
@@ -27,7 +29,7 @@ const AuthForm = () => {
       .string()
       .min(6, { message: "Password must be at least 6 characters long." }),
   });
-
+  const [errorMessage, setErrorMessage] = useState("");
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({}); //state to manage form errors.
   const [formData, setFormData] = useState({
     name: "",
@@ -35,7 +37,7 @@ const AuthForm = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoginForm, setIsLoginForm] = useState(false);
+  const [isLoginForm, setIsLoginForm] = useState(true);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -68,9 +70,12 @@ const AuthForm = () => {
       console.log("User logged in:", response.data);
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
+      localStorage.setItem("userId", response.data.userId);
+      navigate("/home");
       // Optionally, handle successful login (e.g., redirect)
     } catch (error) {
       console.error("Login failed:", error);
+      setErrorMessage("Incorrect email or password.");
       // Optionally, handle login error (e.g., display error message)
     }
   };
@@ -238,6 +243,9 @@ const AuthForm = () => {
             </Button>
           </div>
         </form>
+        {errorMessage && (
+          <Alert message={errorMessage} type="danger" margin="10px" />
+        )}
         <div className="frame16">
           <Typography variant="body1" className="urbanist-font ">
             {isLoginForm ? (
