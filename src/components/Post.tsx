@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Container, Row, Col, Carousel } from 'react-bootstrap';
-import Comments from './Comments'; // Make sure to import the Comments component
+import Comments from './Comments';
+import AddComment from './AddComment';
+import ShowComments from './ShowComments';
 
 export interface IPost {
   _id: string;
@@ -15,16 +17,23 @@ interface PostProps {
   post: IPost;
 }
 
-const Post = ({ post }: PostProps) => {
+const Post: React.FC<PostProps> = ({ post }) => {
+  const [commentAdded, setCommentAdded] = React.useState(false);
+
+  const handleCommentAdded = () => {
+    setCommentAdded((prev) => !prev);
+  };
+
+
   return (
     <Container>
       <Row className="justify-content-center">
-        <Col lg={8} xl={6}> {/* Adjusted for a narrower card */}
+        <Col lg={8} xl={6}>
           <Card className="mb-4 shadow-sm">
             <Carousel interval={null}>
               {post.photos.map((photo, index) => (
                 <Carousel.Item key={index}>
-                  <img className="d-block w-100" src={photo} alt={`Photo ${index + 1}`} />
+                  <img className="d-block w-100" src={photo} alt={`Slide ${index}`} />
                 </Carousel.Item>
               ))}
             </Carousel>
@@ -37,22 +46,15 @@ const Post = ({ post }: PostProps) => {
               <div className="d-flex justify-content-between align-items-center">
                 <div>
                   <i className="fas fa-map-marker-alt text-muted mr-2"></i>
-                  <span className="align-middle"> {post.location}</span>
+                  {" " + post.location}
                 </div>
-                <div style={{ cursor: 'pointer' }}>
-                  {/* This will be dynamic once you fetch the actual comment count */}
-                  <i className="fas fa-comment text-muted mr-2"></i>
-                  <span className="align-middle"> Comment (52)</span> 
-                </div>
-              </div>
-              <div className="mt-2 d-flex justify-content-end">
-                <div style={{ cursor: 'pointer' }}>
-                  <i className="fas fa-plus mr-2"></i>
-                  <span className="align-middle"> Add comment</span>
+                <div className="text-end">
+                  <ShowComments postId={post._id} />
+                  <AddComment postId={post._id} onCommentAdded={handleCommentAdded} />
                 </div>
               </div>
             </Card.Body>
-            <Comments postId={post._id} />
+            <Comments postId={post._id} key={commentAdded ? 'new' : 'old'} />
           </Card>
         </Col>
       </Row>
@@ -61,4 +63,3 @@ const Post = ({ post }: PostProps) => {
 };
 
 export default Post;
-
