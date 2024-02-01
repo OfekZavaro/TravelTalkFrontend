@@ -15,6 +15,7 @@ import "@fontsource/roboto/700.css";
 function App() {
   return (
     <Router>
+      <NavBar />
       <div>
         {/* Define your routes */}
         <Routes>
