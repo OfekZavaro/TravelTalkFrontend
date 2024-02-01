@@ -23,7 +23,6 @@ const Comments = ({ postId }: CommentProps) => {
             headers: { Authorization: `Bearer ${token}` }
           } : {};
         const response = await apiClient.get(`/postInteraction/postId/${postId}`, config);
-        console.log('API response:', response.data); 
         if (response.data && response.data.length > 0) {
           setComments(response.data[0].comments || []);
         } else {

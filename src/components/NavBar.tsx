@@ -1,12 +1,33 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { apiClient } from '../utils/apiClient';
 
 const NavBar = () => {
   const location = useLocation();
 
-  const handleLogout = () => {
-    // Logic for logging out (like clearing the local storage, resetting auth state, etc.)
+  const handleLogout = async () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    console.log(refreshToken);
+
+    if (refreshToken) {
+      try {
+        await apiClient.post('/auth/logout', {} ,{
+          headers: {
+            'Authorization': `Bearer ${refreshToken}`
+          }
+        });
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('userId');
+      } catch (error) {
+        console.error('Error during logout:', error);
+      }
+    } else {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('userId');
+    }
   };
   
   return (
@@ -28,13 +49,13 @@ const NavBar = () => {
           </Nav>
           <Nav>
             {}
-            <Nav.Link as={Link} to="/logout" onClick={handleLogout} style={{ 
+            <Nav.Link as={Link} to="/" onClick={handleLogout} style={{ 
               marginLeft: 'auto', 
               backgroundColor: '#fff', 
               color: '#000', 
               borderRadius: '20px', 
               padding: '5px 15px' 
-            }}>
+              }}>
               Log Out
             </Nav.Link>
           </Nav>
