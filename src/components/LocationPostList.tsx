@@ -18,7 +18,6 @@ const LocationPostList = ({ location }: LocationPostListProps) => {
         const token = localStorage.getItem('accessToken');
         const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
         const response = await apiClient.get(`/postInteraction/location/${location}`, config);
-        console.log('API response:', response.data); // Log the API response
         setPosts(response.data); // Directly set the response data as posts
       } catch (error) {
         console.error('Error fetching posts:', error);
