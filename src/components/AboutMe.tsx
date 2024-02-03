@@ -8,10 +8,11 @@ import Form from "react-bootstrap/Form";
 import { string } from "zod";
 
 interface AboutMeProps {
-  userId: string; // Explicitly typing userId as string
+  userId: string;
+  refreshProfile: () => void;
 }
 
-const AboutMe: React.FC<AboutMeProps> = ({ userId }) => {
+const AboutMe: React.FC<AboutMeProps> = ({ userId, refreshProfile }) => {
   const defaultUserProfile = {
     Name: "",
     email: "",
@@ -117,7 +118,8 @@ const AboutMe: React.FC<AboutMeProps> = ({ userId }) => {
       if (response.status === 200) {
         console.log("Profile updated successfully");
         setUserProfile({ ...tempUserProfile, profilePhoto: photoUrl }); // Update user profile with changes from tempUserProfile
-        handleCloseEditModal(); // Close the edit modal after successful update
+        handleCloseEditModal(); 
+        refreshProfile();
       } else {
         console.error("Failed to update profile:", response.statusText);
       }

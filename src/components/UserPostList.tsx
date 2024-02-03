@@ -45,9 +45,7 @@ const UserPostsList: React.FC<UserPostsListProps> = ({ userId }) => {
           const config = token ? {
               headers: { Authorization: `Bearer ${token}` }
           } : {};
-          const userResponse = await apiClient.get(`/user/${userId}`, config);
-          const userName = userResponse.data.userProfile.Name;
-          const response = await apiClient.get(`/postInteraction/user/${userName}`, config);
+          const response = await apiClient.get(`/postInteraction/user/${userId}`, config);
           setUserPosts(response.data);
       } catch (error) {
         console.error('Error fetching posts:', error);

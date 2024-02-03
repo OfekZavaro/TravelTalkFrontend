@@ -13,9 +13,14 @@ import UserPostsList from "../components/UserPostList";
 const ProfilePage = () => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId") || "";
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleNavigate = () => {
     navigate("/uploadPost");
+  };
+
+  const refreshProfile = () => {
+    setRefreshKey(oldKey => oldKey + 1);
   };
 
   return (
@@ -25,7 +30,7 @@ const ProfilePage = () => {
         <Row>
           <Col md={4}>
             {/* About Me section */}
-            <AboutMe userId={userId} />
+            <AboutMe userId={userId} refreshProfile={refreshProfile}/>
           </Col>
           <Col md={8}>
             {/* Right Container for Posts */}
@@ -46,7 +51,7 @@ const ProfilePage = () => {
               </Button>
             </div>
             {/* User's Posts List */}
-            <UserPostsList userId={userId} />
+            <UserPostsList userId={userId} key={refreshKey}/>
           </Col>
         </Row>
       </Container>

@@ -79,14 +79,14 @@ const TravelPostForm = () => {
             console.log(fileData);
             const photoUrls = await Promise.all(fileData.map(uploadPhoto));
             console.log(photoUrls);
-            const userResponse = await apiClient.get(`/user/${userId}`, config);
-            const userName = userResponse.data.userProfile.Name;
+            //const userResponse = await apiClient.get(`/user/${userId}`, config);
+            //const userName = userResponse.data.userProfile.Name;
             const postObject = {
                 city: post.city,
                 description: post.description,
                 location: post.location,
                 photos: photoUrls, 
-                userId: userName 
+                userId: userId 
             };
             console.log(postObject);
             const response =await apiClient.post('/post', postObject, config);

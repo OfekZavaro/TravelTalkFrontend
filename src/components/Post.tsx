@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Container, Row, Col, Carousel } from 'react-bootstrap';
 import Comments from './Comments';
 import AddComment from './AddComment';
 import ShowComments from './ShowComments';
 import Weather from './Weather';
+import { apiClient } from '../utils/apiClient';
 
 export interface IPost {
   _id: string;
@@ -20,11 +21,31 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ post }) => {
   const [commentAdded, setCommentAdded] = React.useState(false);
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const getUserName = async () => {
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('accessToken');
+      const config = token ? {
+        headers: { Authorization: `Bearer ${token}` }
+      } : {};
+      try {
+        const userResponse = await apiClient.get(`/user/${userId}`, config);
+        setUserName(userResponse.data.userProfile.Name); // Set the userName in the state
+      } catch (error) {
+        console.error('Failed to fetch user name:', error);
+      }
+    };
+
+    if (post.userId) {
+      getUserName();
+    }
+  }, [post.userId]); 
 
   const handleCommentAdded = () => {
     setCommentAdded((prev) => !prev);
   };
-
 
   return (
     <Container>
@@ -40,7 +61,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
             </Carousel>
             <Card.Body>
               <Card.Subtitle className="mb-2 text-muted">
-                {`By ${post.userId}`}
+                {`By ${userName}`}
               </Card.Subtitle>
               <Card.Title>
                 <Row>
