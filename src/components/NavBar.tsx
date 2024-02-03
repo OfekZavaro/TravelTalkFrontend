@@ -31,7 +31,7 @@ const NavBar = () => {
   };
   
   return (
-    <Navbar expand="lg" variant="dark" fixed="top" style={{ backgroundColor: 'transparent' }}>
+    <Navbar expand="lg" variant="dark" style={{ position: 'absolute', width: '100%', top: 0, zIndex: 1000 }}>
       <Container>
         <Navbar.Brand as={Link} to="/">TRAVEL TALK</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
