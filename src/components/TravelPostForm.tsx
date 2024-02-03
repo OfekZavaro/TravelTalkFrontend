@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { apiClient } from '../utils/apiClient';
 import { FaCamera } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 interface ITravelPostFormState {
   title: string;
@@ -12,6 +13,7 @@ interface ITravelPostFormState {
 }
 
 const TravelPostForm = () => {
+  const navigate = useNavigate();
   const [post, setPost] = useState<ITravelPostFormState>({
     title: '',
     description: '',
@@ -90,6 +92,7 @@ const TravelPostForm = () => {
             const response =await apiClient.post('/post', postObject, config);
             console.log(response)
             setSuccessMessage('Your post is created successfully!');
+            navigate("/profile");
         } catch (error) {
             console.error('There was an error submitting the post', error);
             setErrorMessage('There was an error submitting your post.');
