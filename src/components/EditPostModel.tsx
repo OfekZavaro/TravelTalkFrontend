@@ -4,7 +4,7 @@ import { apiClient } from '../utils/apiClient';
 
 interface IPost {
     _id: string;
-    title: string;
+    city: string;
     description: string;
     location: string;
     photos: string[]; 
@@ -20,7 +20,7 @@ interface IPost {
 
 const EditPostModal = ({ show, handleClose, post, onPostUpdated }: EditPostModalProps) => {
   const [editedPost, setEditedPost] = useState({
-    title: post.title,
+    city: post.city,
     description: post.description,
     location: post.location,
     photos: post.photos,
@@ -55,7 +55,7 @@ const EditPostModal = ({ show, handleClose, post, onPostUpdated }: EditPostModal
   };
 
   const handleSubmit = async () => {
-    let updatedPhotoUrls = editedPost.photos;;
+    let updatedPhotoUrls = editedPost.photos;
     if (newPhotos.length > 0) {
       try {
         const uploadedUrls = await Promise.all(newPhotos.map(uploadPhoto));
@@ -95,12 +95,12 @@ const EditPostModal = ({ show, handleClose, post, onPostUpdated }: EditPostModal
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group controlId="title">
-            <Form.Label>Title of your travel</Form.Label>
+          <Form.Group controlId="city">
+            <Form.Label>City of your travel</Form.Label>
             <Form.Control
               type="text"
-              name="title"
-              value={editedPost.title}
+              name="city"
+              value={editedPost.city}
               onChange={handleChange}
             />
           </Form.Group>

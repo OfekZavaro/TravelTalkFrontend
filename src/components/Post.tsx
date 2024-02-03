@@ -3,10 +3,11 @@ import { Card, Container, Row, Col, Carousel } from 'react-bootstrap';
 import Comments from './Comments';
 import AddComment from './AddComment';
 import ShowComments from './ShowComments';
+import Weather from './Weather';
 
 export interface IPost {
   _id: string;
-  title: string;
+  city: string;
   location: string;
   description: string;
   photos: string[];
@@ -41,7 +42,16 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <Card.Subtitle className="mb-2 text-muted">
                 {`By ${post.userId}`}
               </Card.Subtitle>
-              <Card.Title>{post.title}</Card.Title>
+              <Card.Title>
+                <Row>
+                  <Col>
+                    {`My trip to ${post.city}`}
+                  </Col>
+                <Col xs="auto" className="text-right">
+                  <Weather city={post.city} />
+                </Col>
+              </Row>
+              </Card.Title>
               <Card.Text>{post.description}</Card.Text>
               <div className="d-flex justify-content-between align-items-center">
                 <div>

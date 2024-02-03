@@ -5,7 +5,7 @@ import { FaCamera } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 interface ITravelPostFormState {
-  title: string;
+  city: string;
   description: string;
   location: string;
   photo: string[] | null;
@@ -15,7 +15,7 @@ interface ITravelPostFormState {
 const TravelPostForm = () => {
   const navigate = useNavigate();
   const [post, setPost] = useState<ITravelPostFormState>({
-    title: '',
+    city: '',
     description: '',
     location: '',
     photo: [],
@@ -82,7 +82,7 @@ const TravelPostForm = () => {
             const userResponse = await apiClient.get(`/user/${userId}`, config);
             const userName = userResponse.data.userProfile.Name;
             const postObject = {
-                title: post.title,
+                city: post.city,
                 description: post.description,
                 location: post.location,
                 photos: photoUrls, 
@@ -125,15 +125,15 @@ const TravelPostForm = () => {
   
           {/* Right Container for Form Fields */}
           <div className="form-fields-container" style={{ flex: '2', padding: '1rem' }}>
-            {/* Title Input */}
+            {/* City Input */}
             <div className="mb-3">
-              <label htmlFor="title" className="form-label">Title of your travel</label>
+              <label htmlFor="city" className="form-label">City of your travel</label>
               <input 
                 type="text" 
                 className="form-control" 
-                id="title" 
-                name="title" 
-                value={post.title}
+                id="city" 
+                name="city" 
+                value={post.city}
                 onChange={handleChange}
                 required 
               />

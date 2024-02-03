@@ -80,7 +80,7 @@ const UserPostsList: React.FC<UserPostsListProps> = ({ userId }) => {
             <EditPostModal
                 show={isEditModalVisible}
                 handleClose={() => setIsEditModalVisible(false)}
-                post={currentPost}
+                post ={currentPost}
                 onPostUpdated={fetchPosts}
             />
         )}
