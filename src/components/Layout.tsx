@@ -7,8 +7,8 @@ const Layout: React.FC = () => {
   return (
     <>
       <NavBar />
-      <main>
-        <Outlet /> {/* Child routes will render here */}
+      <main style={{ position: 'relative' }}>
+        <Outlet /> 
       </main>
       <Footer />
     </>
