@@ -16,6 +16,7 @@ import { apiClient } from "../../utils/apiClient";
 import { z } from "zod";
 import Alert from "../CustomAlert";
 import "./AuthForm.css";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
 const AuthForm = () => {
   const navigate = useNavigate();
@@ -114,6 +115,40 @@ const AuthForm = () => {
     }
   };
 
+  const onGoogleLogInSuccess = async (
+    credentialResponse: CredentialResponse
+  ) => {
+    try {
+      console.log(credentialResponse);
+      // Send the access token to your server for verification and user authentication
+      const response = await apiClient.post("/auth/google", credentialResponse);
+
+      // Check if the login was successful
+      if (response.status === 200) {
+        // Optionally, perform additional actions such as updating UI, storing tokens, or navigating to another page
+        console.log("Google login success:", response.data);
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+        localStorage.setItem("userId", response.data.userId);
+        navigate("/home");
+      } else {
+        // Handle login failure
+        console.error("Google login failed:", response.statusText);
+        // Optionally, display an error message or take other actions
+      }
+    } catch (error) {
+      // Handle any errors that occur during the login process
+      console.error("Error logging in with Google:", error);
+      // Optionally, display an error message or take other actions
+    }
+  };
+
+  const onGoogleLogInFailure = () => {
+    // Handle the Google login failure
+    console.log("Google login failed");
+    // Optionally, display an error message or take other actions
+  };
+
   return (
     <div className="auth-form-container urbanist-font">
       {!isLoginForm ? (
@@ -151,6 +186,12 @@ const AuthForm = () => {
             ? "Continue with Google or Enter Login Details"
             : "Enter details to create your Travel Talk account"}
         </Typography>
+        <div style={{ borderRadius: "30px" }}>
+          <GoogleLogin
+            onSuccess={onGoogleLogInSuccess}
+            onError={onGoogleLogInFailure}
+          ></GoogleLogin>
+        </div>
         <form onSubmit={handleSubmit}>
           {!isLoginForm && (
             <Grid item xs={12}>
