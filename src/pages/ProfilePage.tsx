@@ -14,7 +14,6 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId") || "";
 
-
   const handleNavigate = () => {
     navigate("/uploadPost");
   };
@@ -51,11 +50,8 @@ const ProfilePage = () => {
           </Col>
         </Row>
       </Container>
-      <Footer />
     </>
   );
-  
-  
 };
 
 export default ProfilePage;
