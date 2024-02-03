@@ -75,49 +75,51 @@ const AboutMe: React.FC<AboutMeProps> = ({ userId }) => {
 
   const handleSubmit = async () => {
     try {
-      // Upload the selected profile photo
-      const formData = new FormData();
+      let photoUrl = userProfile.profilePhoto; // Initialize with the current photo URL
+
+      // Upload the selected profile photo if a new one is selected
       if (selectedFile) {
-        console.log(selectedFile);
+        const formData = new FormData();
         formData.append("file", selectedFile);
-      }
-      //console.log(selectedFile);
-      const uploadResponse = await apiClient.post("/file", formData, {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      });
 
-      // If upload is successful, update the user profile with the returned URL
-      if (uploadResponse.status === 200) {
-        const photoUrl = uploadResponse.data.url;
-
-        const response = await apiClient.patch(
-          `/user/${userId}`,
-          {
-            name: tempUserProfile.Name,
-            profilePhoto: photoUrl,
-            aboutMe: tempUserProfile.aboutMe,
+        const uploadResponse = await apiClient.post("/file", formData, {
+          headers: {
+            "Content-type": "multipart/form-data",
           },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
+        });
 
-        if (response.status === 200) {
-          console.log("Profile updated successfully");
-          setUserProfile({ ...tempUserProfile, profilePhoto: photoUrl }); // Update user profile with changes from tempUserProfile
-          handleCloseEditModal(); // Close the edit modal after successful update
+        if (uploadResponse.status === 200) {
+          photoUrl = uploadResponse.data.url; // Update photoUrl with the newly uploaded photo URL
         } else {
-          console.error("Failed to update profile:", response.statusText);
+          console.error(
+            "Failed to upload profile photo:",
+            uploadResponse.statusText
+          );
+          return; // Exit function if photo upload fails
         }
+      }
+
+      // Update the user profile with the new photo URL and other details
+      const response = await apiClient.patch(
+        `/user/${userId}`,
+        {
+          name: tempUserProfile.Name,
+          profilePhoto: photoUrl, // Use the updated photoUrl
+          aboutMe: tempUserProfile.aboutMe,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Profile updated successfully");
+        setUserProfile({ ...tempUserProfile, profilePhoto: photoUrl }); // Update user profile with changes from tempUserProfile
+        handleCloseEditModal(); // Close the edit modal after successful update
       } else {
-        console.error(
-          "Failed to upload profile photo:",
-          uploadResponse.statusText
-        );
+        console.error("Failed to update profile:", response.statusText);
       }
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -142,9 +144,11 @@ const AboutMe: React.FC<AboutMeProps> = ({ userId }) => {
   return (
     <Card
       style={{
-        width: "440px",
-        height: "590px",
+        width: "350px",
+        height: "450px",
         fontFamily: "Urbanist, sans-serif",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Card.Header
@@ -159,12 +163,23 @@ const AboutMe: React.FC<AboutMeProps> = ({ userId }) => {
           <EditIcon />
         </Button>
       </Card.Header>
-      <Card.Body>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+      <Card.Body style={{ overflow: "auto" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <img
             src={userProfile.profilePhoto}
             alt="Profile"
-            style={{ width: "360px", height: "280px", alignItems: "center" }}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              alignItems: "center",
+            }}
           />
         </div>
         <h6 style={{ fontWeight: "bold" }}>{userProfile.Name}</h6>
