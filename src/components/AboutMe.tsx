@@ -16,7 +16,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ userId, refreshProfile }) => {
   const defaultUserProfile = {
     Name: "",
     email: "",
-    profilePhoto: "avater1.jpg",
+    profilePhoto: "avatar.jpeg",
     aboutMe: "I'm a passionate traveler!",
   };
 
@@ -118,7 +118,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ userId, refreshProfile }) => {
       if (response.status === 200) {
         console.log("Profile updated successfully");
         setUserProfile({ ...tempUserProfile, profilePhoto: photoUrl }); // Update user profile with changes from tempUserProfile
-        handleCloseEditModal(); 
+        handleCloseEditModal();
         refreshProfile();
       } else {
         console.error("Failed to update profile:", response.statusText);
@@ -151,6 +151,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ userId, refreshProfile }) => {
         fontFamily: "Urbanist, sans-serif",
         display: "flex",
         flexDirection: "column",
+        margin: "30px",
       }}
     >
       <Card.Header
