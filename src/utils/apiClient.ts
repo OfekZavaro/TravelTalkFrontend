@@ -4,7 +4,7 @@ const cancelToken = axios.CancelToken;
 const source = cancelToken.source();
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000', 
+  baseURL: 'https://10.10.248.206', 
   timeout: 5000, 
 });
 
