@@ -10,8 +10,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import loginImage from "/login2.jpg";
-import signUpImage from "/signUp2.jpg";
+// import loginImage from "/login2.jpg";
+// import signUpImage from "/signUp2.jpg";
 import { apiClient } from "../../utils/apiClient";
 import { z } from "zod";
 import Alert from "../CustomAlert";
@@ -153,11 +153,11 @@ const AuthForm = () => {
     <div className="auth-form-container urbanist-font">
       {!isLoginForm ? (
         <div className="image-container">
-          <img src={signUpImage} alt="Sign Up" />
+          <img src="/signUp2.jpg" alt="Sign Up" />
         </div>
       ) : (
         <div className="image-container">
-          <img src={loginImage} alt="Login" />
+          <img src="/login2.jpg" alt="Login" />
         </div>
       )}
       <div className="form-container" style={{ padding: "0 5rem" }}>
