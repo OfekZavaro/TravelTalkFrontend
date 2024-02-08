@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Post, { IPost } from './Post';
-import { apiClient, cancelRequest } from '../utils/apiClient';
+import { apiClient} from '../utils/apiClient';
 
 const PostsList = () => {
   const [posts, setPosts] = useState<IPost[]>([]);

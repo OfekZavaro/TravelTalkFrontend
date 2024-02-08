@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -7,7 +7,6 @@ import { RiAddCircleLine } from "react-icons/ri";
 import AboutMe from "../components/AboutMe";
 import TopBar from "../components/TopBar";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
 import UserPostsList from "../components/UserPostList";
 
 const ProfilePage = () => {

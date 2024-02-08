@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button} from 'react-bootstrap';
 import { apiClient } from '../utils/apiClient';
 
 interface IComment {

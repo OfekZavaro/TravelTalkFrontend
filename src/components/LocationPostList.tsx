@@ -1,5 +1,4 @@
-// LocationPostList.tsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Post, { IPost } from './Post';
 import { apiClient } from '../utils/apiClient';
 
@@ -12,13 +11,13 @@ const LocationPostList = ({ location }: LocationPostListProps) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      if (!location) return; // Exit if no location is selected
+      if (!location) return; 
 
       try {
         const token = localStorage.getItem('accessToken');
         const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
         const response = await apiClient.get(`/postInteraction/location/${location}`, config);
-        setPosts(response.data); // Directly set the response data as posts
+        setPosts(response.data); 
       } catch (error) {
         console.error('Error fetching posts:', error);
       }

@@ -5,7 +5,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { string } from "zod";
 
 interface AboutMeProps {
   userId: string;

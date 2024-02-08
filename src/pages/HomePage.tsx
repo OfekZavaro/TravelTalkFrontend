@@ -1,4 +1,3 @@
-import React from "react";
 import TopBar from "../components/TopBar";
 import PostsList from "../components/PostList";
 

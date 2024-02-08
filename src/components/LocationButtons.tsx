@@ -1,5 +1,4 @@
-// LocationButtons.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 interface LocationButtonsProps {

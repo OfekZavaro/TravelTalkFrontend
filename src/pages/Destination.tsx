@@ -1,5 +1,4 @@
-// DestinationPage.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import TopBar from "../components/TopBar";
 import LocationButtons from "../components/LocationButtons";
 import LocationPostList from "../components/LocationPostList";

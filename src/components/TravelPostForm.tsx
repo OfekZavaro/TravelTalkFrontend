@@ -1,5 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
-import axios from "axios";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { apiClient } from "../utils/apiClient";
 import { FaCamera } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
